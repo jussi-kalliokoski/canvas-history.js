@@ -21,3 +21,8 @@ context.setHistorySize(15); // Default 10
 
 // To get the maximum size of the history
 context.getHistorySize();
+
+Demo:
+http://niiden.com/canvas-history/
+
+MIT Licensed
