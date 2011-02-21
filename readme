@@ -1,0 +1,23 @@
+canvas-history
+
+canvas-history is a nice extension for HTML5 apps that perform drawing.
+canvas-history extends the 2D drawing context of the canvas, giving access to easy undo and redo.
+
+Getting started
+* include the javascript
+
+Code:
+// To save the current state of the canvas (e.g. onmouseup)
+context.saveHistory();
+
+// To undo
+context.undo();
+
+// To redo
+context.redo();
+
+// To adjust the maximum size of the history
+context.setHistorySize(15); // Default 10
+
+// To get the maximum size of the history
+context.getHistorySize();

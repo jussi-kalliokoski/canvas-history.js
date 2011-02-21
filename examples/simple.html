@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>canvas-history demo</title>
+	<script src="../js/canvas-history.js"></script>
+<script>
+var undo, redo, deb;
+(function(){
+	var canvas;
+	undo = function(){
+		canvas.getContext('2d').undo();
+	}
+	redo = function(){
+		canvas.getContext('2d').redo();
+	}
+	function ready(){
+		canvas = document.getElementById('tablecanvas');
+		var mousedown = false;
+		canvas.onmousedown = function(){
+			mousedown = true;
+		};
+		canvas.onmousemove = function(e){
+			if (mousedown){
+				drawdot(e.pageX, e.pageY);
+			}
+		};
+		canvas.onmouseup = function(){
+			mousedown = false;
+			canvas.getContext('2d').saveHistory();
+		};
+		canvas.getContext('2d').saveHistory();
+		document.onkeydown = function(e){
+			if (e.ctrlKey && e.which == 90){
+				if (e.shiftKey){
+					canvas.getContext('2d').redo();
+				} else {
+					canvas.getContext('2d').undo();
+				}
+			}
+		};
+	}
+	window.onload = ready;
+	function drawdot(x, y){
+		var ctx = canvas.getContext('2d');
+		ctx.save();
+		ctx.globalAlpha = 0.5; // Let's breathe at least some life into this rather avivid show.
+		ctx.translate(x, y);
+		ctx.rotate(Math.random() * Math.PI * 2);
+		ctx.fillStyle = '#'+Math.floor(Math.random() * 255 * 255 * 255).toString(16); // Suboptimal, huh? Luckily the color parsers handle invalid colors quite well.
+		ctx.beginPath();
+		ctx.arc(20, 0, 10, 0, Math.PI * 2);
+		ctx.closePath();
+		ctx.fill();
+		ctx.restore();
+	}
+})();
+</script>
+	</head>
+	<body>
+		<canvas id="tablecanvas" width="500" height="500" style="border: 1px solid black;"></canvas><br/>
+		<button onclick="undo();">Undo</button> <button onclick="redo();">Redo</button>
+	</body>
+</html>
