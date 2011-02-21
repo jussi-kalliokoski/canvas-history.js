@@ -1,7 +1,3 @@
-// canvas-history.js, developed by Jussi Kalliokoski, public domain.
-// The code is pretty messy and has no comments, sorry.
-// Initial version, only tested on Chrome7
-
 (function(global){
 	var	proto		= 
 		bindings	= [];
